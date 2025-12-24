@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Actionable Insight AI - Login</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const LoginPage = () => {
+            const [username, setUsername] = useState('');
+            const [password, setPassword] = useState('');
+            const [isLoading, setIsLoading] = useState(false);
+
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                if (!username || !password) return;
+                
+                setIsLoading(true);
+                // 模拟登录过程
+                setTimeout(() => {
+                    setIsLoading(false);
+                    alert(`try to login: ${username}`);
+                }, 1000);
+            };
+
+            const handleHomeColorClick = () => {
+                alert('Hover Color');
+            };
+
+            const handleSignUpClick = () => {
+                alert('Sign Up');
+            };
+
+            const handleForgotPasswordClick = () => {
+                alert('Forget Password');
+            };
+
+            return (
+                <div className="login-container">
+                    {/* 左侧图片区域 (2/3) */}
+                    <div className="login-image-section">
+                        <div className="image-overlay">
+                            <h1 className="image-title">
+                                Database Actionable Insight AI
+                            </h1>
+                            <p className="image-subtitle">
+                                Your intelligent data analytics platform. 
+                                Extract valuable insights from massive amounts of data to support business decisions.
+                            </p>
+                            
+                            <ul className="features-list">
+                                <li>Real-time data monitoring and analysis</li>
+                                <li>AI-driven predictive models</li>
+                                <li>Custom reports and visualizations</li>
+                                <li>Secure enterprise-grade data protection</li>
+                                <li>Team collaboration and sharing</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    {/* 右侧登录区域 (1/3) */}
+                    <div className="login-form-section">
+                        <div className="login-card">
+                            <div className="login-header">
+                                <h2 className="login-title">
+                                    Welcome back
+                                </h2>
+                                <p className="login-subtitle">Log in to your account to continue</p>
+                            </div>
+
+                            <form onSubmit={handleSubmit} className="login-form">
+                                <div className="form-group">
+                                    <label htmlFor="username" className="form-label">Username:</label>
+                                    <input
+                                        type="text"
+                                        id="username"
+                                        className="form-input"
+                                        placeholder="please enter username"
+                                        value={username}
+                                        onChange={(e) => setUsername(e.target.value)}
+                                        required
+                                    />
+                                </div>
+                                
+                                <div className="form-group">
+                                    <label htmlFor="password" className="form-label">Password:</label>
+                                    <input
+                                        type="password"
+                                        id="password"
+                                        className="form-input"
+                                        placeholder="please enter password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        required
+                                    />
+                                </div>
+
+                                <div className="form-actions">
+                                    <button 
+                                        type="button" 
+                                        className="home-color-btn"
+                                        onClick={handleHomeColorClick}
+                                    >
+                                        Hover Color
+                                    </button>
+                                    
+                                    <button 
+                                        type="submit" 
+                                        className="login-btn"
+                                        disabled={isLoading || !username || !password}
+                                    >
+                                        {isLoading ? 'Login...' : 'Login'}
+                                    </button>
+                                </div>
+                            </form>
+
+                            <div className="login-options">
+                                <button 
+                                    className="link-btn" 
+                                    onClick={handleSignUpClick}
+                                >
+                                    Sign Up?
+                                </button>
+                                
+                                <button 
+                                    className="link-btn forget-password" 
+                                    onClick={handleForgotPasswordClick}
+                                >
+                                    Forget Password?
+                                </button>
+                            </div>
+
+                            <div className="login-footer">
+                                <p className="footer-text">Database Actionable Insight AI v2.0</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<LoginPage />);
+    </script>
+</body>
+</html>
