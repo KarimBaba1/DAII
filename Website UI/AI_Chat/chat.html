@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeepSeek UI Clone</title>
+    <link rel="stylesheet" href="chat.css">
+</head>
+<body>
+
+    <!-- TOP RIGHT: Chat History Trigger -->
+    <div class="top-nav">
+        <button id="historyBtn" class="history-trigger">
+            <span class="history-text">Chat History</span>
+            <div class="icon-wrapper">
+                <img src="../icon/list.png" alt="Menu" class="icon-img" />
+            </div>
+        </button>
+    </div>
+
+    <!-- SIDE PANEL: History -->
+    <div id="sidePanel" class="side-panel">
+        <div class="panel-content">
+            <div class="panel-header">
+                <h2>History</h2>
+                <button id="closePanel" class="close-btn">
+                    <!-- FIX: Use same icon-img class for consistent sizing -->
+                    <img src="../icon/close.png" alt="Close" class="icon-img" />
+                </button>
+            </div>
+            <div class="history-list">
+                <div class="history-item">
+                    <span class="item-title">Profit Analysis Q3</span>
+                    <span class="item-date">Just now</span>
+                </div>
+                <div class="history-item">
+                    <span class="item-title">Sales Report Q2</span>
+                    <span class="item-date">2 hours ago</span>
+                </div>
+                <div class="history-item">
+                    <span class="item-title">Customer Database Query</span>
+                    <span class="item-date">Yesterday</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CENTER CONTENT -->
+    <main class="main-container">
+        <div class="content-wrapper">
+            
+            <!-- Heading -->
+            <h1 class="main-title">
+                How can I help you with your database today?
+            </h1>
+
+            <!-- Input Box Container -->
+            <div class="input-container">
+                <!-- Glow effect background -->
+                <div class="glow-bg"></div>
+                
+                <!-- Actual Input Area -->
+                <div class="input-box">
+                    <textarea
+                        id="chatInput"
+                        placeholder="Ask anything..."
+                    ></textarea>
+                    
+                    <!-- Bottom Actions -->
+                    <div class="input-actions">
+                        <div class="left-actions">
+                            <!-- Placeholders for other icons if needed -->
+                        </div>
+
+                        <!-- Send Button -->
+                        <button id="sendBtn" class="send-btn" disabled>
+                            <!-- FIX: Use same icon-img-send class -->
+                            <img src="../icon/send.png" alt="Send" class="icon-img-send" />
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        const historyBtn = document.getElementById('historyBtn');
+        const closePanel = document.getElementById('closePanel');
+        const sidePanel = document.getElementById('sidePanel');
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
+
+        // Toggle History Panel
+        function toggleHistory() {
+            sidePanel.classList.toggle('open');
+        }
+
+        // Event Listeners
+        historyBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent immediate closing
+            toggleHistory();
+        });
+        
+        closePanel.addEventListener('click', toggleHistory);
+
+        // Click outside to close history panel
+        document.addEventListener('click', (e) => {
+            if (sidePanel.classList.contains('open') && 
+                !sidePanel.contains(e.target) && 
+                !historyBtn.contains(e.target)) {
+                toggleHistory();
+            }
+        });
+
+        // Handle Input State
+        chatInput.addEventListener('input', (e) => {
+            if (e.target.value.trim().length > 0) {
+                sendBtn.removeAttribute('disabled');
+            } else {
+                sendBtn.setAttribute('disabled', 'true');
+            }
+        });
+
+        // Handle Enter key to send
+        chatInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                if (!sendBtn.disabled) {
+                    // Add your send logic here
+                    console.log('Sending message:', chatInput.value);
+                    chatInput.value = '';
+                    sendBtn.setAttribute('disabled', 'true');
+                }
+            }
+        });
+
+        // Handle send button click
+        sendBtn.addEventListener('click', () => {
+            if (!sendBtn.disabled) {
+                console.log('Sending message:', chatInput.value);
+                chatInput.value = '';
+                sendBtn.setAttribute('disabled', 'true');
+            }
+        });
+    </script>
+</body>
+</html>

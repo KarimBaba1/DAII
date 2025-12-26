@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeepSeek Chat UI</title>
+    <link rel="stylesheet" href="demoChat.css">
+</head>
+<body>
+
+    <!-- TOP RIGHT: Chat History Trigger -->
+    <div class="top-nav">
+        <button id="historyBtn" class="history-trigger">
+            <span class="history-text">Chat History</span>
+            <div class="icon-wrapper">
+                <img src="../icon/list.png" alt="Menu" class="icon-img" />
+            </div>
+        </button>
+    </div>
+
+    <!-- SIDE PANEL -->
+    <div id="sidePanel" class="side-panel">
+        <div class="panel-content">
+            <div class="panel-header">
+                <h2>History</h2>
+                <button id="closePanel" class="close-btn">
+                    <img src="../icon/close.png" alt="Close" class="icon-img" /> <!-- Changed from icon-img-close -->
+                </button>
+            </div>
+            <div class="history-list">
+                <div class="history-item">
+                    <span class="item-title">Profit Analysis Q3</span>
+                    <span class="item-date">Just now</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CHAT CONTAINER -->
+    <main class="main-container">
+        
+        <!-- SCROLLABLE MESSAGES AREA -->
+        <div class="chat-scroll-area">
+            
+            <!-- 1. User Message -->
+            <div class="message-row user">
+                <div class="message-text">
+                    Could you help me calculate our profit last month?
+                </div>
+            </div>
+
+            <!-- 2. AI Message (Simple Text) -->
+            <div class="message-row ai">
+                <div class="bubble-ai">
+                    Your company profit $ 10M in last month
+                </div>
+            </div>
+
+            <!-- 3. AI Complex Response (Code Block) -->
+            <div class="message-row ai">
+                <div class="code-block-wrapper">
+                    <div class="code-header">
+                        <span class="code-lang">SQL Query Generated</span>
+                    </div>
+                    <div class="code-content">
+SELECT SUM(revenue - cost) as profit FROM transactions WHERE YEAR(transaction_date) = YEAR(CURRENT_DATE - INTERVAL 1 MONTH) AND MONTH(transaction_date) = MONTH(CURRENT_DATE - INTERVAL 1 MONTH);
+                    </div>
+                </div>
+                
+                <div class="code-footer-actions">
+                    <button class="icon-action-btn" title="Edit">
+                        <img src="../icon/edit.png" alt="Edit" class="icon-img" />
+                    </button>
+                    <button class="icon-action-btn" title="Run/Send">
+                        <img src="../icon/send.png" alt="Send" class="icon-img" />
+                    </button>
+                </div>
+            </div>
+
+            <!-- 4. Action Button (Yellow) -->
+            <div class="message-row ai">
+                <button class="action-btn yellow">Report</button>
+            </div>
+
+            <!-- 5. Visuals (Dashboard Images) -->
+            <div class="message-row ai">
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <div class="fake-chart">
+                            <div class="bar h-40"></div><div class="bar h-60"></div><div class="bar h-30"></div><div class="bar h-50"></div>
+                        </div>
+                        <span class="chart-label">Revenue Metrics</span>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="fake-chart">
+                             <div class="pie"></div>
+                        </div>
+                        <span class="chart-label">Expense Breakdown</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. Action Button (Green) -->
+            <div class="message-row ai align-right-action">
+                <button class="action-btn green">Save in data</button>
+            </div>
+
+            <!-- 7. Suggestions (Pills) -->
+            <div class="suggestions-container">
+                <button class="suggestion-pill">
+                    <span>need more detail of this ?</span>
+                    <img src="../icon/right-arrow.png" class="icon-img" style="width: 16px; height: 16px;">
+                </button>
+                <button class="suggestion-pill">
+                    <span>need more month ?</span>
+                    <img src="../icon/right-arrow.png" class="icon-img" style="width: 16px; height: 16px;">
+                </button>
+                <button class="suggestion-pill">
+                    <span>Need to analyze this information ?</span>
+                    <img src="../icon/right-arrow.png" class="icon-img" style="width: 16px; height: 16px;">
+                </button>
+            </div>
+
+        </div>
+
+        <!-- BOTTOM INPUT AREA (No floating toolbar) -->
+        <div class="input-container-fixed">
+            <div class="input-box">
+                <textarea id="chatInput" placeholder="Ask anything..."></textarea>
+                <div class="input-actions">
+                    <div class="left-actions"></div>
+                    <button id="sendBtn" class="send-btn" disabled>
+                        <img src="../icon/send.png" alt="Send" class="icon-img-send" />
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // Same JS Logic
+        const historyBtn = document.getElementById('historyBtn');
+        const closePanel = document.getElementById('closePanel');
+        const sidePanel = document.getElementById('sidePanel');
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
+
+        function toggleHistory() { sidePanel.classList.toggle('open'); }
+        historyBtn.addEventListener('click', toggleHistory);
+        closePanel.addEventListener('click', toggleHistory);
+
+        chatInput.addEventListener('input', (e) => {
+            if (e.target.value.trim().length > 0) {
+                sendBtn.removeAttribute('disabled');
+            } else {
+                sendBtn.setAttribute('disabled', 'true');
+            }
+        });
+    </script>
+</body>
+</html>
